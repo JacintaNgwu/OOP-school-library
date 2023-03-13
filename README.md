@@ -89,7 +89,7 @@ Example command:
 
 Clone this repository to your desired folder:
 
-[git clone] (https://github.com/JacintaNgwu/OOP-school-library.git)
+[git clone](https://github.com/JacintaNgwu/OOP-school-library.git)
 
 ```sh
 cd OOP-school-library
