@@ -1,6 +1,7 @@
 <a name="readme-top"></a>
+<div align="center">
 
-  <h3><b>OOP-school-library</b></h3>
+  <h1><b>OOP-school-library</b></h1>
 
 </div>
 
