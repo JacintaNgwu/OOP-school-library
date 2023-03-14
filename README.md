@@ -59,9 +59,7 @@
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-> Add a link to your deployed project.
-
-- [Live Demo Link](https://google.com)
+- [Not ready yet]()
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -69,21 +67,15 @@
 
 ## 💻 Getting Started <a name="getting-started"></a>
 
-> Describe how a new developer could make use of your project.
-
 To get a local copy up and running, follow these steps.
 
 ### Prerequisites
 
 In order to run this project you need:
 
-<!--
-Example command:
-
-```sh
- gem install rails
-```
- -->
+- Git
+- An IDE to run and edit code
+- A web browser to display your result
 
 ### Setup
 
