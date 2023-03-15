@@ -1,8 +1,4 @@
-require_relative 'nameable'
-require_relative 'capitalize_decorator'
-require_relative 'trimmer_decorator'
-
-class Person < Nameable
+class Person
   attr_reader :id
   attr_accessor :name, :age, :rentals
 
@@ -33,10 +29,3 @@ class Person < Nameable
     @age >= 18
   end
 end
-
-person = Person.new(age: 22, name: 'maximilianus')
-person.correct_name
-capitalizedperson = CapitalizeDecorator.new(person)
-capitalizedperson.correct_name
-capitalizedtrimmedperson = TrimmerDecorator.new(capitalizedPerson)
-capitalizedtrimmedperson.correct_name
