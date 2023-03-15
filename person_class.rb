@@ -4,7 +4,7 @@ require_relative 'trimmer_decorator'
 
 class Person < Nameable
   attr_reader :id
-  attr_accessor :name, :age
+  attr_accessor :name, :age :rentals
 
   def initialize(age:, name: 'unknown', parent_permission: true)
     @id = Random.rand(1..1000)
@@ -20,6 +20,10 @@ class Person < Nameable
 
   def correct_name
     @name
+  end
+
+  def add_rental(date, person)
+    Rental.new(date, self, person)
   end
 
   private
