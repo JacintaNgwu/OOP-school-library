@@ -44,39 +44,44 @@ class App
 
   def create_person
     colorize_outprint(35, 'Do you want to create a student (1) or a teacher (2)? [Input the number]: ')
-
-    case gets.chomp
-    when '1'
-      colorize_output(36, 'Enter Student details')
-      colorize_outprint(35, 'Name: ')
-      name = gets.chomp
-
-      colorize_outprint(35, 'Age: ')
-      age = gets.chomp
-
-      colorize_outprint(35, 'Has parent permission? [Y/N]: ')
-      permission = gets.chomp.downcase
-      case permission
-      when 'y' then parent_permission = true
-      when 'n' then parent_permission = false
-      end
-
-      student = Student.new(age: age, name: name, parent_permission: parent_permission)
-      @people.push(student)
-      colorize_output(34, 'Person Student Created successfully')
-    when '2'
-      colorize_output(36, 'Enter Teacher details')
-      colorize_outprint(35, 'Name: ')
-      name = gets.chomp
-
-      colorize_outprint(35, 'Age: ')
-      age = gets.chomp
-
-      colorize_outprint(35, 'Specialization: ')
-      specialization = gets.chomp
-      @people.push(Teacher.new(age: age, name: name, specialization: specialization))
-      colorize_output(34, 'Person Teacher Created successfully')
+    choice = gets.chomp.to_i
+    case choice
+    when 1
+      create_student
+    when 2
+      create_teacher
+    else
+      colorize_output(31, 'Invalid choice')
     end
+  end
+
+  def create_student
+    colorize_outprint(35, 'Name: ')
+    name = gets.chomp
+    colorize_outprint(35, 'Age: ')
+    age = gets.chomp
+    colorize_outprint(35, 'Has parent permission? [Y/N]: ')
+    permission = gets.chomp.downcase
+    case permission
+    when 'y' then parent_permission = true
+    when 'n' then parent_permission = false
+    end
+    student = Student.new(age: age, name: name, parent_permission: parent_permission)
+    @people.push(student)
+    colorize_output(34, 'Person Student Created successfully')
+    display_list
+    continue
+  end
+
+  def create_teacher
+    colorize_outprint(35, 'Name: ')
+    name = gets.chomp
+    colorize_outprint(35, 'Age: ')
+    age = gets.chomp
+    colorize_outprint(35, 'Specialization: ')
+    specialization = gets.chomp
+    @people.push(Teacher.new(age: age, name: name, specialization: specialization))
+    colorize_output(34, 'Person Teacher Created successfully')
     display_list
     continue
   end
@@ -150,9 +155,9 @@ class App
     continue
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def continue
     user_option = gets.chomp
-
     case user_option
     when '1' then list_all_books
     when '2' then list_all_people
@@ -165,4 +170,5 @@ class App
       exit
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 end
