@@ -2,6 +2,7 @@ require_relative 'student_class'
 require_relative 'teacher_class'
 require_relative 'book_class'
 require_relative 'rental_class'
+require_relative 'control'
 
 class App
   def initialize
@@ -27,7 +28,6 @@ class App
       end
     end
     display_list
-    continue
   end
 
   def list_all_people
@@ -39,7 +39,6 @@ class App
       end
     end
     display_list
-    continue
   end
 
   def create_person
@@ -70,7 +69,6 @@ class App
     @people.push(student)
     colorize_output(34, 'Person Student Created successfully')
     display_list
-    continue
   end
 
   def create_teacher
@@ -83,7 +81,6 @@ class App
     @people.push(Teacher.new(age: age, name: name, specialization: specialization))
     colorize_output(34, 'Person Teacher Created successfully')
     display_list
-    continue
   end
 
   def create_book
@@ -98,14 +95,12 @@ class App
 
     colorize_output(36, 'You have successfully created your book')
     display_list
-    continue
   end
 
   def list_all_books_with_numbers
     if @books.empty?
       colorize_output(34, 'Please enter books first!')
       display_list
-      continue
     else
       @books.each_with_index do |book, index|
         puts "#{index}) Title: #{book.title}, Author: #{book.author}"
@@ -117,7 +112,6 @@ class App
     if @people.empty?
       colorize_output(34, 'Please enter people first!!')
       display_list
-      continue
     else
       @people.each_with_index do |person, index|
         puts "#{index}) [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
@@ -139,36 +133,37 @@ class App
     @rentals.push(Rental.new(date, @books[book_option], @people[person_option]))
     colorize_output(36, 'Rental created successfully')
     display_list
-    continue
   end
 
   def list_rentals_of_person_id()
     print 'Person ID: '
-    id = gets.chomp.to_i
+    person_id = gets.chomp.to_i
+    person = @people.find { |human| human.id == person_id }
 
-    rentals = @rentals.filter { |rental| rental.person.id == id }
-    puts 'List of Rentals:'
+    rentals = @rentals
     rentals.each do |rental|
-      puts "Date: #{rental.date}, Book '#{rental.book.title}' by #{rental.book.author}"
+      puts "Date: #{rental.date}, Book '#{rental.person.title}' by #{rental.person.author}" if rental.book == person
     end
     display_list
-    continue
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
-  def continue
+  def display_list
+    puts ' '
+    puts 'Please choose an option by entering a number:'
+    puts '1 - List all books'
+    puts '2 - List all people'
+    puts '3 - Create a person'
+    puts '4 - Create a book'
+    puts '5 - Create rental'
+    puts '6 - List all rentals for a given person id'
+    puts '7 - Exit'
     user_option = gets.chomp
-    case user_option
-    when '1' then list_all_books
-    when '2' then list_all_people
-    when '3' then create_person
-    when '4' then create_book
-    when '5' then create_rental
-    when '6' then list_rentals_of_person_id
-    when '7'
-      colorize_output(34, 'Thank you for using this application!!')
+    if user_option == '6'
+      list_rentals_of_person_id
+    elsif user_option == '7'
       exit
+    else
+      controller(user_option)
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 end
